@@ -50,7 +50,7 @@ def list_objects(bucket_name, prefix):
 def b(event, context):
     # Detalles de configuración
     bucket_raw = "bucket-raw25"
-    bucket_final = "bucket-final25"
+    bucket_final = "bucket-processed-near"
     folder_name = "casas"
 
     # Extraer la fecha actual
