@@ -12,7 +12,7 @@
         "events": [
             {
                 "function": "app.py",
-                "expression": "cron(27 4 ? * THU *)"  // Ejecutar todos los días a las 8:00 UTC
+                "expression": "cron(31 4 ? * THU *)"  // Ejecutar todos los días a las 8:00 UTC
             }
         ] 
     }
