@@ -53,3 +53,4 @@ jobs:
           pip install zappa
           zappa update dev
           zappa invoke app.f
+          zappa invoke app.b
