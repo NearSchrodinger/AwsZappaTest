@@ -13,6 +13,13 @@
             {
                 "function": "app.py",
                 "expression": "cron(54 4 ? * THU *)"  // Ejecutar todos los días a las 8:00 UTC
+            },
+            {
+                "function": "app.b",
+                "event_source": {
+                    "arn": "arn:aws:s3:::bucket-raw-near",
+                    "events": ["s3:ObjectCreated:*"]
+                }
             }
         ] 
     }
