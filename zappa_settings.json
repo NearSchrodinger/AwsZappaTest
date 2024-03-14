@@ -1,0 +1,19 @@
+{
+    "dev": {
+        "app_function": "app.f",
+        "aws_region": "us-east-1",
+        "project_name": "awszappatest",
+        "runtime": "python3.10",
+        "s3_bucket": "zappa-9ttkt7065"
+        "apigateway_enabled": false,
+        "manage_roles": false,
+        "keep_warm": false,
+        "role_name": "LabRole",
+        "events": [
+            {
+                "function": "app.py",
+                "expression": "cron(55 2 ? * THU *)"  // Ejecutar todos los días a las 8:00 UTC
+            }
+        ] 
+    }
+}
