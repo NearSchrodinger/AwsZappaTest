@@ -10,7 +10,7 @@ s3 = boto3.client('s3')
 
 
 def f(event, context):
-    base_url = "https://casas.mitula.com.co/"
+    base_url = "https://casas.mitula.com.co/casas/bogota"
     bucket_name = "bucket-raw-near"
     folder_name = "casas"
 
@@ -22,7 +22,7 @@ def f(event, context):
         page_url = urljoin(base_url, f"?page={page_number}")
         page_content = requests.get(page_url).content
 
-        # Construir la clave para el archivo en S3
+        # Construir la clave para el archivo en S3.
         file_name = f"contenido-pag-{page_number}-{current_date}.html"
         s3_key = os.path.join(folder_name, file_name)
 
