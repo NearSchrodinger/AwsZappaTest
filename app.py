@@ -6,6 +6,7 @@ import requests
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 
+
 # Configuración de AWS
 s3 = boto3.client('s3')
 
@@ -49,7 +50,7 @@ def list_objects(bucket_name, prefix):
 
 def b(event, context):
     # Detalles de configuración
-    bucket_raw = "bucket-raw25"
+    bucket_raw = "bucket-raw-near"
     bucket_final = "bucket-processed-near"
     folder_name = "casas"
 
