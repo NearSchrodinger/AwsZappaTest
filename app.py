@@ -12,6 +12,19 @@ s3 = boto3.client('s3')
 
 
 def f(event, context):
+    """
+    Función para descargar las páginas HTML de un sitio web y subirlas a un 
+    bucket de S3.
+
+    Args:
+        event (dict): Evento de Lambda.
+        context (object): Contexto de Lambda.
+
+    Returns:
+        dict: Diccionario con el código de estado y un mensaje indicando el 
+        resultado de la operación.
+    """
+
     base_url = "https://casas.mitula.com.co/casas/bogota"
     bucket_name = "bucket-raw-near"
     folder_name = "casas"
@@ -49,6 +62,19 @@ def list_objects(bucket_name, prefix):
 
 
 def b(event, context):
+    """
+    Función para procesar archivos HTML de casas, extraer datos y guardarlos en 
+    un archivo CSV en S3.
+
+    Args:
+        event (dict): Evento de Lambda.
+        context (object): Contexto de Lambda.
+
+    Returns:
+        dict: Diccionario con el código de estado y un mensaje indicando el 
+        resultado de la operación.
+    """
+
     # Detalles de configuración
     bucket_raw = "bucket-raw-near"
     bucket_final = "bucket-processed-near"
@@ -79,22 +105,28 @@ def b(event, context):
         soup = BeautifulSoup(html_content, 'html.parser')
 
         # Encontrar todos los contenedores de información principal
-        information_containers = soup.find_all("div", class_="listing-card__information-main")
+        information_containers = soup.find_all(
+            "div", class_="listing-card__information-main")
 
         # Iterar sobre cada contenedor
         for container in information_containers:
             # Extraer los datos necesarios del HTML dentro de este contenedor
-            title = container.find("div", class_="listing-card__title").text.strip()
+            title = container.find(
+                "div", class_="listing-card__title").text.strip()
             price = container.find("div", class_="price").text.strip()
-            location = container.find("div", class_="listing-card__location").text.strip()
+            location = container.find(
+                "div", class_="listing-card__location").text.strip()
             bedrooms_tag = container.find("span", {"data-test": "bedrooms"})
             bedrooms = bedrooms_tag.text.strip() if bedrooms_tag else "No disponible"
             bathrooms_tag = container.find("span", {"data-test": "bathrooms"})
             bathrooms = bathrooms_tag.text.strip() if bathrooms_tag else "No disponible"
-            area_divs = container.find_all("div", class_="listing-card__property")
-            area = area_divs[2].text.strip() if len(area_divs) > 2 else "No disponible"
+            area_divs = container.find_all(
+                "div", class_="listing-card__property")
+            area = area_divs[2].text.strip() if len(
+                area_divs) > 2 else "No disponible"
             # Agregar los datos a la lista
-            all_data.append([title, price, location, bedrooms, bathrooms, area])
+            all_data.append(
+                [title, price, location, bedrooms, bathrooms, area])
 
     # Escribir los datos en el archivo CSV
     csv_data = [
